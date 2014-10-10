@@ -1,0 +1,14 @@
+{
+	"browserify": true,
+	"quotmark": true,
+
+	"maxcomplexity": 6,
+	"maxparams": 3,
+	"maxdepth": 4,
+	"maxstatements": 15,
+	"maxlen": 80,
+
+	"globals": {
+		"console": false
+	}
+}
