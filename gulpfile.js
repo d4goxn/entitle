@@ -9,9 +9,12 @@ var browserify = require( 'browserify' ),
 	watchify = require( 'watchify' ),
 	through = require( 'through' ),
 	reactTransform = require( 'react-tools' ).transform,
+	path = require( 'path' ),
 
-	SRC = './src/app.js',
-	OUT = './app.js',
+	APP = 'app.js',
+	HTML = 'index.html',
+
+	SRC = './src',
 	DEST = './dist';
 
 function transform( filename ) {
@@ -33,10 +36,10 @@ function transform( filename ) {
 }
 
 gulp.task('build', ['html'], function() {
-	browserify( SRC )
+	browserify( path.join( SRC, APP ))
 	.transform( transform )
 	.bundle()
-	.pipe( source( OUT ))
+	.pipe( source( APP ))
 	.pipe( streamify( uglify({
 		output: { ascii_only: true
 	}})))
@@ -44,27 +47,14 @@ gulp.task('build', ['html'], function() {
 });
 
 gulp.task( 'watch', function() {
-	var bundler = watchify( SRC )
-	.transform( transform )
-	.on( 'update', rebundle );
-
-	function rebundle() {
-		return bundler.bundle()
-		.on( 'error', function( error ) {
-			console.log( 'Browserify error:', error );
-		})
-		.pipe( source( OUT ))
-		.pipe( gulp.dest( DEST ));
-	}
-
-	return rebundle();
+	gulp.watch( SRC, [ 'build' ]);
 });
 
 gulp.task('html', function() {
-	gulp.src( './src/index.html' )
+	gulp.src( path.join( SRC, HTML ))
 	.pipe( gulp.dest( DEST ));
 });
 
 gulp.task('clean', function( done ) {
-	del([ './dist' ], done);
+	del([ DEST ], done);
 });
