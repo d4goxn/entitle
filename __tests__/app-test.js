@@ -1,9 +1,17 @@
 /** @jsx React.DOM */
 
-jest.dontMock( '../src/app' );
+var appPath = '../src/app.js';
+
+jest.dontMock( appPath );
 
 describe( 'App', function() {
-  it( 'fails', function() {
-    expect( false ).toEqual( true );
+  it( 'renders a header', function() {
+    var React = require( 'react/addons' ),
+      App = require( appPath ),
+      TestUtils = React.addons.TestUtils,
+
+      app = TestUtils.renderIntoDocument( <App /> );
+
+    TestUtils.findRenderedDOMComponentWithTag( app, 'h1' );
   });
 });

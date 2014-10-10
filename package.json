@@ -24,6 +24,8 @@
   },
   "jest": {
     "scriptPreprocessor": "./reactTransform.js",
-    "unmockedModulePathPatterns": [ "./node_modules/react" ]
+    "unmockedModulePathPatterns": [
+      "./node_modules/react"
+    ]
   }
 }

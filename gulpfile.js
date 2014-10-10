@@ -11,7 +11,7 @@ var browserify = require( 'browserify' ),
 	reactTransform = require( 'react-tools' ).transform,
 	path = require( 'path' ),
 
-	APP = 'app.js',
+	APP = 'render-app.js',
 	HTML = 'index.html',
 
 	SRC = './src',
@@ -35,8 +35,8 @@ function transform( filename ) {
 	);
 }
 
-gulp.task('build', ['html'], function() {
-	browserify( path.join( SRC, APP ))
+gulp.task('build', [ 'html' ], function() {
+	browserify( './' + path.join( SRC, APP ))
 	.transform( transform )
 	.bundle()
 	.pipe( source( APP ))
@@ -51,7 +51,7 @@ gulp.task( 'watch', function() {
 });
 
 gulp.task('html', function() {
-	gulp.src( path.join( SRC, HTML ))
+	gulp.src( './' + path.join( SRC, HTML ))
 	.pipe( gulp.dest( DEST ));
 });
 

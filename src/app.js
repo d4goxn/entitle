@@ -4,10 +4,8 @@
 
 var React = require('react');
 
-var App = React.createClass({
+var App = module.exports = React.createClass({
 	render: function() {
-		return <h1>Ahoyhoy!</h1>;
+		return <h1>Ahoy!</h1>;
 	}
 });
-
-React.renderComponent(<App />, document.body);
